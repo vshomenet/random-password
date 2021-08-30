@@ -1,0 +1,11 @@
+Package: rpass
+Version: 1.0.0
+Section: custom
+Priority: optional
+Architecture: all
+Essential: no
+Installed-Size: 5680
+Maintainer:  Sergey Semenov <sergey@vshome.net>
+Description: Random pass
+Pre-Depends: 
+
