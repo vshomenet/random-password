@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-import subprocess
 import os
 import sys
 import time
@@ -29,4 +28,3 @@ class password:
    return ''.join(random.choice(chars) for _ in range(size))
   secret=base64.b32encode(bytearray(gen_string(), 'ascii')).decode('utf-8')
   return secret
-

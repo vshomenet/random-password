@@ -1,1 +1,1 @@
-# random-password for user in linux
+# Generate random password for users in system Linux on based "Google Authenticator"

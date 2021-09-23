@@ -1,13 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-import subprocess
-import os
-import sys
-import time
-import configparser
 import argparse
 from _gen_pass import password
-
 
 # This is function only for pyinstaller
 def resource_path(relative_path):
