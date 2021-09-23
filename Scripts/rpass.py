@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import argparse
 from _gen_pass import password
+from _pass import start
 
 # This is function only for pyinstaller
 def resource_path(relative_path):
@@ -19,18 +20,18 @@ if __name__ == '__main__':
  parser.add_argument("-q", metavar='<user>', dest="qr_user", type=str, help='Generate QR-code for user')
  parser.add_argument("-c", metavar='<user>', dest="ch_user", type=str, help='Generate new hash for user')
  parser.add_argument("-d", metavar='<user>', dest="del_user", type=str, help='Delete user')
+ parser.add_argument("-s", metavar='<command>', dest="start", type=str, help='"rpas -s start" Start main service')
  args = parser.parse_args()
  if args.sys_user != None:
   print ("Add user in system and create password")
  if args.user != None:
   print ("Create password for user")
-  pas=password()
-  print(pas.gen_secret())
-  print(pas.gen_pass(pas.gen_secret()))
  if args.qr_user != None:
   print ("Generate QR-code for user")
  if args.ch_user != None:
   print ("Generate new hash for user")
  if args.del_user != None:
   print ("Delete user")
+ if (args.start != None and args.start=="start"):
+  start()
 
