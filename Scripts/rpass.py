@@ -6,6 +6,8 @@ import sys
 import time
 import configparser
 import argparse
+from _gen_pass import password
+
 
 # This is function only for pyinstaller
 def resource_path(relative_path):
@@ -28,18 +30,13 @@ if __name__ == '__main__':
   print ("Add user in system and create password")
  if args.user != None:
   print ("Create password for user")
+  pas=password()
+  print(pas.gen_secret())
+  print(pas.gen_pass(pas.gen_secret()))
  if args.qr_user != None:
   print ("Generate QR-code for user")
  if args.ch_user != None:
   print ("Generate new hash for user")
  if args.del_user != None:
   print ("Delete user")
-
-
-
-
-
-
-
-
 
