@@ -3,6 +3,7 @@
 import argparse
 from _gen_pass import password
 from _pass import start
+from _gen_qr import qrcode
 
 # This is function only for pyinstaller
 def resource_path(relative_path):
@@ -28,6 +29,8 @@ if __name__ == '__main__':
   print ("Create password for user")
  if args.qr_user != None:
   print ("Generate QR-code for user")
+  qr=qrcode()
+  qr.get_qr(args.qr_user)
  if args.ch_user != None:
   print ("Generate new hash for user")
  if args.del_user != None:
