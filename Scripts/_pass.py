@@ -9,7 +9,7 @@ from _gen_pass import password
 class start:
  def __init__(self):
 
-  path='rpass/etc/rpass.conf'
+  path='/etc/rpass.conf'
   config = configparser.ConfigParser()
   config.sections()
   config.read(path)
