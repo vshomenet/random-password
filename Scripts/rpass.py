@@ -28,6 +28,7 @@ if __name__ == '__main__':
  if args.add_user != None:
   username=args.add_user
   if usr.check_user(username)==False:
+   usr.add_user(username)
    secret=pas.gen_secret()
    usr.add_config(username,secret)
    qr.get_qr(username)
@@ -46,6 +47,7 @@ if __name__ == '__main__':
  if args.del_user != None:
   username=args.del_user
   if usr.check_user(username)==True:
+   usr.del_user(username)
    usr.del_config(username)
    print ("User "+username+" removed successfully from the system")
   else:

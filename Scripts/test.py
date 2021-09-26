@@ -6,3 +6,4 @@ import sys
 import time
 import configparser
 
+/usr/bin/id

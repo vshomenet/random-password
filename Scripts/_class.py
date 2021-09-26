@@ -89,3 +89,11 @@ class users:
   with open(path, 'w') as f:
    config.remove_option('users', username)
    config.write(f)
+ #Add user in system
+ def add_user(self,username):
+  c_add="/usr/sbin/useradd -d/home/"+username+" -s/bin/bash -m "+username
+  subprocess.call(c_add, shell=True, stdout=open(os.devnull, 'w'), stderr=open(os.devnull, 'w'))
+ #Delete user from system
+ def del_user(self,username):
+  c_del="/usr/sbin/userdel -r -f "+username
+  subprocess.call(c_del, shell=True, stdout=open(os.devnull, 'w'), stderr=open(os.devnull, 'w'))

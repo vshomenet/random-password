@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import subprocess
+import os
 import time
 import configparser
 from threading import Thread
@@ -24,7 +25,7 @@ class start:
     time.sleep(1)
     new=int(pas.gen_pass(secret))
     if old != new:
-     print(user, pas.gen_pass(secret))
+     install_pass(user,new)
 
   pas=password()
   for user, secret in config.items('users'):
