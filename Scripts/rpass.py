@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
+import subprocess
 import argparse
 import configparser
 from _rpass import start
@@ -14,6 +15,10 @@ def resource_path(relative_path):
  return os.path.join(base_path, relative_path)
 #-----------------------------------
 
+def rpass_service():
+ c=subprocess.call("/bin/systemctl stop rpass", shell=True, stdout=open(os.devnull, 'w'), stderr=open(os.devnull, 'w'))
+ c=subprocess.call("/bin/systemctl start rpass", shell=True, stdout=open(os.devnull, 'w'), stderr=open(os.devnull, 'w'))
+ 
 usr=users()
 pas=password()
 qr=qrcode()
@@ -32,6 +37,7 @@ if __name__ == '__main__':
    secret=pas.gen_secret()
    usr.add_config(username,secret)
    qr.get_qr(username)
+   rpass_service()
    print("User "+username+" successfully created in the system\nPlease scan the QR-code")
   else:
    print("The user is already in the system. To create or change a password for a user, run the\nrpass -c "+username)
@@ -41,6 +47,7 @@ if __name__ == '__main__':
    secret=pas.gen_secret()
    usr.add_config(username,secret)
    qr.get_qr(username)
+   rpass_service()
    print("Password encryption algorithm changed for user "+username+"\nPlease scan the new QR-code")
   else:
    print("The user not found in the system. To add user in system, run the\nrpass -a "+username)
@@ -49,6 +56,7 @@ if __name__ == '__main__':
   if usr.check_user(username)==True:
    usr.del_user(username)
    usr.del_config(username)
+   rpass_service()
    print ("User "+username+" removed successfully from the system")
   else:
    print("The user not found in the system. To add user in system, run the\nrpass -a "+username)
