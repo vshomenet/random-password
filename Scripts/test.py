@@ -5,6 +5,4 @@ import os
 import sys
 import time
 import configparser
-from _class import users
 
- 

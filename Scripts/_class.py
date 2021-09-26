@@ -32,7 +32,7 @@ class password:
   return secret
 
 class qrcode:
-
+ # Generate QR-code for user
  def get_qr(self,username):
   import io
   import qrcode
@@ -59,6 +59,7 @@ class qrcode:
   print(f.read())
 
 class users:
+ #Check user in system
  def check_user(self, username):
   with open('/etc/passwd', 'r') as file:
    for line in file:
@@ -70,3 +71,21 @@ class users:
      a=False
    file.close()
    return a
+ #Add new user in config file
+ def add_config(self, username, secret):
+  path='/etc/rpass.conf'
+  config = configparser.ConfigParser()
+  config.sections()
+  config.read(path)
+  with open(path, 'w') as f:
+   config.set('users', username , secret)
+   config.write(f)
+ #Remove user from config file
+ def del_config(self, username):
+  path='/etc/rpass.conf'
+  config = configparser.ConfigParser()
+  config.sections()
+  config.read(path)
+  with open(path, 'w') as f:
+   config.remove_option('users', username)
+   config.write(f)

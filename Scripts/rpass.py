@@ -14,15 +14,6 @@ def resource_path(relative_path):
  return os.path.join(base_path, relative_path)
 #-----------------------------------
 
-def write_config(username, secret):
- path='/etc/rpass.conf'
- config = configparser.ConfigParser()
- config.sections()
- config.read(path)
- with open(path, 'w') as f:
-  config.set('users', username , secret)
-  config.write(f)
-
 usr=users()
 pas=password()
 qr=qrcode()
@@ -38,7 +29,7 @@ if __name__ == '__main__':
   username=args.add_user
   if usr.check_user(username)==False:
    secret=pas.gen_secret()
-   write_config(username,secret)
+   usr.add_config(username,secret)
    qr.get_qr(username)
    print("User "+username+" successfully created in the system\nPlease scan the QR-code")
   else:
@@ -47,13 +38,18 @@ if __name__ == '__main__':
   username=args.pass_user
   if usr.check_user(username)==True:
    secret=pas.gen_secret()
-   write_config(username, secret)
+   usr.add_config(username,secret)
    qr.get_qr(username)
    print("Password encryption algorithm changed for user "+username+"\nPlease scan the new QR-code")
   else:
    print("The user not found in the system. To add user in system, run the\nrpass -a "+username)
  if args.del_user != None:
-  print ("Delete user")
+  username=args.del_user
+  if usr.check_user(username)==True:
+   usr.del_config(username)
+   print ("User "+username+" removed successfully from the system")
+  else:
+   print("The user not found in the system. To add user in system, run the\nrpass -a "+username)
  if (args.start != None and args.start=="start"):
   start()
 
