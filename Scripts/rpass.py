@@ -38,7 +38,7 @@ if __name__ == '__main__':
    usr.add_config(username,secret)
    qr.get_qr(username)
    rpass_service()
-   print("User "+username+" successfully created in the system\nPlease scan the QR-code")
+   print("User "+username+" successfully created in the system\nPlease scan the QR-code\nUser's home directory created\n/home/"+username)
   else:
    print("The user is already in the system. To create or change a password for a user, run the\nrpass -c "+username)
  if args.pass_user != None:
@@ -57,7 +57,7 @@ if __name__ == '__main__':
    usr.del_user(username)
    usr.del_config(username)
    rpass_service()
-   print ("User "+username+" removed successfully from the system")
+   print ("User "+username+" removed successfully from the system\nUser's home directory deleted\n/home/"+username)
   else:
    print("The user not found in the system. To add user in system, run the\nrpass -a "+username)
  if (args.start != None and args.start=="start"):
