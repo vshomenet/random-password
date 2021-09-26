@@ -1,1 +1,13 @@
-
+#!/bin/bash
+echo "Recovery backup config..."
+if [ "$(ls /etc | grep rpass.conf_backup )" != "" ];then cp /etc/rpass.conf_backup /etc/rpass.conf;fi
+rm /etc/rpass.conf_backup
+echo "Change permissions..."
+chmod 0600 /etc/rpass.conf
+chmod 0400 /etc/systemd/system/rpass.service
+echo "Configuration systemd..."
+/bin/systemctl daemon-reload
+/bin/systemctl enable rpass.service > /dev/null 2>&1
+echo "Start service rpass..."
+/bin/systemctl start rpass.service > /dev/null 2>&1
+echo "Install rpass is finished"

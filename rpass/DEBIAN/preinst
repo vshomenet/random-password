@@ -1,1 +1,4 @@
-
+#!/bin/bash
+echo "Start install rpass ..."
+echo "Create backup config..."
+if [ "$(ls /etc | grep rpass.conf )" != "" ];then cp /etc/rpass.conf /etc/rpass.conf_backup;fi
