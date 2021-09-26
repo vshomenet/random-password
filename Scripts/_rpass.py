@@ -26,8 +26,9 @@ class start:
     new=int(pas.gen_pass(secret))
     if old != new:
      install_pass(user,new)
-
-  pas=password()
-  for user, secret in config.items('users'):
-   th = Thread(target=create_pass, args=(user, secret))
-   th.start()
+     
+  while True:
+   pas=password()
+   for user, secret in config.items('users'):
+    th = Thread(target=create_pass, args=(user, secret))
+    th.start()
