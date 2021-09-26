@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import argparse
-from _gen_pass import password
-from _pass import start
-from _gen_qr import qrcode
+import configparser
+from _rpass import start
+from _class import qrcode, users, password
 
 # This is function only for pyinstaller
 def resource_path(relative_path):
@@ -14,25 +14,44 @@ def resource_path(relative_path):
  return os.path.join(base_path, relative_path)
 #-----------------------------------
 
+def write_config(username, secret):
+ path='/etc/rpass.conf'
+ config = configparser.ConfigParser()
+ config.sections()
+ config.read(path)
+ with open(path, 'w') as f:
+  config.set('users', username , secret)
+  config.write(f)
+
+usr=users()
+pas=password()
+qr=qrcode()
+
 if __name__ == '__main__':
- parser = argparse.ArgumentParser(description='random pass')
- parser.add_argument("-a", metavar='<user>', dest="sys_user", type=str, help='Add user in system and create password')
- parser.add_argument("-n", metavar='<user>', dest="user", type=str, help='Create password for user')
- parser.add_argument("-q", metavar='<user>', dest="qr_user", type=str, help='Generate QR-code for user')
- parser.add_argument("-c", metavar='<user>', dest="ch_user", type=str, help='Generate new hash for user')
- parser.add_argument("-d", metavar='<user>', dest="del_user", type=str, help='Delete user')
+ parser = argparse.ArgumentParser(description='"Random Pass" Generate random password for users in system Linux on based "Google Authenticator"')
+ parser.add_argument("-a", metavar='<username>', dest="add_user", type=str, help='Add user in system, create password and generate QR-code')
+ parser.add_argument("-c", metavar='<username>', dest="pass_user", type=str, help='Create new password for user and generate QR-code')
+ parser.add_argument("-d", metavar='<username>', dest="del_user", type=str, help='Delete user from system')
  parser.add_argument("-s", metavar='<command>', dest="start", type=str, help='"rpas -s start" Start main service')
  args = parser.parse_args()
- if args.sys_user != None:
-  print ("Add user in system and create password")
- if args.user != None:
-  print ("Create password for user")
- if args.qr_user != None:
-  print ("Generate QR-code for user")
-  qr=qrcode()
-  qr.get_qr(args.qr_user)
- if args.ch_user != None:
-  print ("Generate new hash for user")
+ if args.add_user != None:
+  username=args.add_user
+  if usr.check_user(username)==False:
+   secret=pas.gen_secret()
+   write_config(username,secret)
+   qr.get_qr(username)
+   print("User "+username+" successfully created in the system\nPlease scan the QR-code")
+  else:
+   print("The user is already in the system. To create or change a password for a user, run the\nrpass -c "+username)
+ if args.pass_user != None:
+  username=args.pass_user
+  if usr.check_user(username)==True:
+   secret=pas.gen_secret()
+   write_config(username, secret)
+   qr.get_qr(username)
+   print("Password encryption algorithm changed for user "+username+"\nPlease scan the new QR-code")
+  else:
+   print("The user not found in the system. To add user in system, run the\nrpass -a "+username)
  if args.del_user != None:
   print ("Delete user")
  if (args.start != None and args.start=="start"):

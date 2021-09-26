@@ -4,7 +4,7 @@ import subprocess
 import time
 import configparser
 from threading import Thread
-from _gen_pass import password
+from _class import password
 
 class start:
  def __init__(self):
