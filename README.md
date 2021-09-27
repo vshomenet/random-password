@@ -19,6 +19,14 @@ After building in the "build" directory, you will have an executable file and de
 > **rpass -c my_name** \
 > _Change algorithm generate password for user "my_name" and generate new QR-code_ 
 
+**Install from repository**
+> **Add repository keys** \
+>_wget -O - http://repository.vshome.net/debian/keyFile | apt-key add -_ \
+> **Add repository in sources.list** \
+>_echo "deb http://repository.vshome.net/debian/ osrelease main" >> /etc/apt/sources.list_ \
+> **Install** \
+> _apt-get update && apt-get install rpass_
+
 **NOTE**
 1. Make sure the time is synchronized on your computer and device where Google Authenticator is installed
 2. Do not set the root password if you do not have physical access to the computer
